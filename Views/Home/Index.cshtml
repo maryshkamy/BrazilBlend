@@ -1,8 +1,37 @@
-﻿@{
+﻿@model IEnumerable<BrazilBlend.Models.Category>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach (var category in Model) {
+    @if (category.Products != null && category.Products.Any()) {
+        <h2>@Html.DisplayFor(modelItem => category.Name)</h2>
+
+        <div class="row">
+            @foreach (var product in category.Products) {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <img src="@Url.Content("~/path/to/your/image.jpg")" alt="Product Image" class="img-fluid mb-3" style="max-height: 150px;">
+                            
+                            <h4 class="card-title">@Html.DisplayFor(modelItem => product.Name)</h4>
+
+                            <p class="card-text"><strong>$@product.Price</strong></p>
+
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 mb-3">
+                                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-secondary btn-block">View Details</a>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <a href="@Url.Action("AddToCart", "Product", new { id = product.Id })" class="btn btn-primary btn-block">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}

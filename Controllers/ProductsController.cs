@@ -22,7 +22,8 @@ namespace BrazilBlend.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            var applicationDbContext = _context.Product.Include(p => p.Brand).Include(p => p.Category);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -34,6 +35,8 @@ namespace BrazilBlend.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -46,6 +49,8 @@ namespace BrazilBlend.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace BrazilBlend.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Brand,Price,CategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,BrandId,Price,Quantity,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace BrazilBlend.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Name", product.BrandId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -78,6 +85,8 @@ namespace BrazilBlend.Controllers
             {
                 return NotFound();
             }
+            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Name", product.BrandId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -86,7 +95,7 @@ namespace BrazilBlend.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Brand,Price,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BrandId,Price,Quantity,CategoryId")] Product product)
         {
             if (id != product.Id)
             {
@@ -113,6 +122,8 @@ namespace BrazilBlend.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Name", product.BrandId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -125,6 +136,8 @@ namespace BrazilBlend.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {

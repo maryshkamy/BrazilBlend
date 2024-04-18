@@ -10,22 +10,22 @@ using BrazilBlend.Models;
 
 namespace BrazilBlend.Controllers
 {
-    public class StocksController : Controller
+    public class BrandsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public StocksController(ApplicationDbContext context)
+        public BrandsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Stocks
+        // GET: Brands
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Stock.ToListAsync());
+            return View(await _context.Brand.ToListAsync());
         }
 
-        // GET: Stocks/Details/5
+        // GET: Brands/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace BrazilBlend.Controllers
                 return NotFound();
             }
 
-            var stock = await _context.Stock
+            var brand = await _context.Brand
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (stock == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(stock);
+            return View(brand);
         }
 
-        // GET: Stocks/Create
+        // GET: Brands/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stocks/Create
+        // POST: Brands/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductId,Quantity")] Stock stock)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Brand brand)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(stock);
+                _context.Add(brand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(stock);
+            return View(brand);
         }
 
-        // GET: Stocks/Edit/5
+        // GET: Brands/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace BrazilBlend.Controllers
                 return NotFound();
             }
 
-            var stock = await _context.Stock.FindAsync(id);
-            if (stock == null)
+            var brand = await _context.Brand.FindAsync(id);
+            if (brand == null)
             {
                 return NotFound();
             }
-            return View(stock);
+            return View(brand);
         }
 
-        // POST: Stocks/Edit/5
+        // POST: Brands/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,Quantity")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Brand brand)
         {
-            if (id != stock.Id)
+            if (id != brand.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace BrazilBlend.Controllers
             {
                 try
                 {
-                    _context.Update(stock);
+                    _context.Update(brand);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StockExists(stock.Id))
+                    if (!BrandExists(brand.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace BrazilBlend.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(stock);
+            return View(brand);
         }
 
-        // GET: Stocks/Delete/5
+        // GET: Brands/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace BrazilBlend.Controllers
                 return NotFound();
             }
 
-            var stock = await _context.Stock
+            var brand = await _context.Brand
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (stock == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(stock);
+            return View(brand);
         }
 
-        // POST: Stocks/Delete/5
+        // POST: Brands/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var stock = await _context.Stock.FindAsync(id);
-            if (stock != null)
+            var brand = await _context.Brand.FindAsync(id);
+            if (brand != null)
             {
-                _context.Stock.Remove(stock);
+                _context.Brand.Remove(brand);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StockExists(int id)
+        private bool BrandExists(int id)
         {
-            return _context.Stock.Any(e => e.Id == id);
+            return _context.Brand.Any(e => e.Id == id);
         }
     }
 }

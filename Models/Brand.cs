@@ -3,30 +3,30 @@ using System.ComponentModel.DataAnnotations;
 namespace BrazilBlend.Models;
 
 /// <summary>
-/// Class <c>Category</c> models the category information.
+/// Class <c>Brand</c> models the brand information.
 /// </summary>
-public class Category {
+public class Brand {
     /// <summary>
-    /// Reports the Category's ID.
+    /// Reports the Brand's ID.
     /// </summary>
     [Key]
     public int Id { get; set; }
 
     /// <summary>
-    /// Reports the Category's Name.
+    /// Reports the Brand's Name.
     /// </summary>
     [Required]
     public string? Name { get; set; }
 
     /// <summary>
-    /// Reports the Category's products collection.
+    /// Reports the Brand's products collection.
     /// </summary>
     public virtual List<Product> Products { get; set; }
 
     /// <summary>
     /// Constructor initialize the Products collection.
     /// </summary>
-    public Category() {
+    public Brand() {
         Products = [];
     }
 }

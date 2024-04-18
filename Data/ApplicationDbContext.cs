@@ -11,9 +11,7 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-public DbSet<BrazilBlend.Models.Stock> Stock { get; set; } = default!;
-
-public DbSet<BrazilBlend.Models.Product> Product { get; set; } = default!;
-
-public DbSet<BrazilBlend.Models.Category> Category { get; set; } = default!;
+    public DbSet<BrazilBlend.Models.Brand> Brand { get; set; } = default!;
+    public DbSet<BrazilBlend.Models.Category> Category { get; set; } = default!;
+    public DbSet<BrazilBlend.Models.Product> Product { get; set; } = default!;    
 }

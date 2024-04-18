@@ -24,7 +24,9 @@ public class Product {
     /// Reports the Product's Brand.
     /// </summary>
     [Required]
-    public string? Brand { get; set;}
+    [ForeignKey("Brand")]
+    [DisplayName("Brand")]
+    public int BrandId { get; set;}
 
     /// <summary>
     /// Reports the Product's Price.
@@ -33,10 +35,26 @@ public class Product {
     public double Price { get; set; }
 
     /// <summary>
+    /// Reports the Product's Quantity.
+    /// </summary>
+    [Required]
+    public int Quantity { get; set;}
+
+    /// <summary>
     /// Reports the Product's Category ID.
     /// </summary>
     [Required]
     [ForeignKey("Category")]
     [DisplayName("Category")]
     public int CategoryId { get; set; }
+
+    /// <summary>
+    /// Navigation property for the related Brand entity.
+    /// </summary>
+    public virtual Brand? Brand { get; set; }
+
+    /// <summary>
+    /// Navigation property for the related Category entity.
+    /// </summary>
+    public virtual Category? Category { get; set; }
 }

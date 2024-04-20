@@ -29,7 +29,7 @@ public class HomeController : Controller
         return View(categories);
     }
 
-    // GET: Images
+    // GET: Products/Images
     [HttpGet]
     public async Task<IActionResult> GetImage(int id)
     {
@@ -56,6 +56,27 @@ public class HomeController : Controller
 
             return File(defaultImageBytes, "image/jpeg");
         }
+    }
+
+    // GET: Products/Details
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null || _context.Product == null)
+        {
+            return NotFound();
+        }
+
+        var product = await _context.Product
+            .Include(p => p.Brand)
+            .Include(p => p.Category)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        return View(product);
     }
 
     public IActionResult Privacy()

@@ -21,7 +21,7 @@
 
                             <div class="row justify-content-center">
                                 <div class="col-md-6 mb-3">
-                                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-secondary btn-block">View Details</a>
+                                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary btn-block">More Details</a> 
                                 </div>
                                 
                                 <div class="col-md-6">

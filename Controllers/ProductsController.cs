@@ -28,7 +28,7 @@ namespace BrazilBlend.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Images
+        // GET: Products/Images
         [HttpGet]
         public async Task<IActionResult> GetImage(int id)
         {
@@ -122,7 +122,7 @@ namespace BrazilBlend.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, "An error occurred while saving the product.");
+                    ModelState.AddModelError(string.Empty, "An error occurred while saving the product. " + ex.Message);
                     return View(productViewModel);
                 }
 

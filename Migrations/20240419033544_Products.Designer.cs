@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrazilBlend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240418034738_Brands")]
-    partial class Brands
+    [Migration("20240419033544_Products")]
+    partial class Products
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,9 @@ namespace BrazilBlend.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Name")
                         .IsRequired()

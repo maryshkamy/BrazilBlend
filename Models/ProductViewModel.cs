@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BrazilBlend.Models;
 
 /// <summary>
-/// Class <c>Product</c> models the product information.
+/// Class <c>Product View Model</c> models the product information.
 /// </summary>
-public class Product {
+public class ProductViewModel {
     /// <summary>
     /// Reports the Product's ID.
     /// </summary>
@@ -43,7 +43,7 @@ public class Product {
     /// <summary>
     /// Reports the Product's Image.
     /// </summary>
-    public byte[]? Image { get; set; }
+    public IFormFile? Image { get; set; }
 
     /// <summary>
     /// Reports the Product's Category ID.

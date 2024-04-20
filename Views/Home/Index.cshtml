@@ -13,8 +13,8 @@
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <img src="@Url.Content("~/path/to/your/image.jpg")" alt="Product Image" class="img-fluid mb-3" style="max-height: 150px;">
-                            
+                            <img src="@Url.Action("GetImage", new { id = product.Id })" alt="Product Image" class="img-fluid mb-3" style="max-height: 150px;"/>
+
                             <h4 class="card-title">@Html.DisplayFor(modelItem => product.Name)</h4>
 
                             <p class="card-text"><strong>$@product.Price</strong></p>

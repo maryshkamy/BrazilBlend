@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BrazilBlend.Data;
 using BrazilBlend.Models;
+using BrazilBlend.Repositoris;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
 
 var app = builder.Build();
 

@@ -34,39 +34,66 @@ public static class SeedData {
             await userManager.AddToRoleAsync(admin, "Admin");
         }
 
-        // using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-        // {
-        //     if (context.Category.Any()) {
-        //         return;
-        //     }
+        var user = new IdentityUser
+        {
+            UserName = "mariana@brazilblend.com",
+            Email = "mariana@brazilblend.com",
+            EmailConfirmed = true
+        };
 
-        //     // Add Brand data.
-        //     context.Brand.AddRange(
-        //         new Brand {
-        //             Name = "NETCAFÉS",
-        //         },
-        //         new Brand {
-        //             Name = "Breville",
-        //         }
-        //     );
+        var userExists = await userManager.FindByEmailAsync(user.Email);
 
-        //     // Add Category data.
-        //     context.Category.AddRange(
-        //         new Category {
-        //             Name = "Whole Bean Coffee"
-        //         },
-        //         new Category {
-        //             Name = "Keurig K-Cups",
-        //         },
-        //         new Category {
-        //             Name = "Equipment",
-        //         },
-        //         new Category {
-        //             Name = "Accessories",
-        //         }
-        //     );
+        if (userExists is null)
+        {
+            await userManager.CreateAsync(user, "Brazil@123");
+            await userManager.AddToRoleAsync(user, "User");
+        }
 
-        //     context.SaveChanges();
-        // }
+        using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+        {
+            if (context.Category.Any()) {
+                return;
+            }
+
+            // Add Brand data.
+            context.Brand.AddRange(
+                new Brand {
+                    Name = "Breville",
+                },
+                new Brand {
+                    Name = "Fellow",
+                },
+                new Brand {
+                    Name = "Intelligenza"
+                },
+                new Brand {
+                    Name = "Keurig"
+                },
+                new Brand {
+                    Name = "NETCAFÉS",
+                },
+                new Brand {
+                    Name = "Starbucks"
+                }
+            );
+
+            // Add Category data.
+            context.Category.AddRange(
+                new Category {
+                    Name = "Whole Bean Coffee"
+                },
+                new Category {
+                    Name = "Keurig K-Cups",
+                },
+                new Category {
+                    Name = "Equipment",
+                },
+                new Category {
+                    Name = "Accessories",
+                }
+            );
+
+            context.SaveChanges();
+        }
     }
 }

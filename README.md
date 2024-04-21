@@ -48,4 +48,7 @@ Coming soon...
 
 ---
 ### ℹ️ Technical Information
-Coming soon...
+
+- Admin credentials: `admin@brazilblend.com` and `Brazil@123`
+
+- User tester credentials: `mariana@brazilblend.com` and `Brazil@123`

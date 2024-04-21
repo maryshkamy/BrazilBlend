@@ -26,7 +26,7 @@ public class Product {
     [Required]
     [ForeignKey("Brand")]
     [DisplayName("Brand")]
-    public int BrandId { get; set;}
+    public int BrandId { get; set; }
 
     /// <summary>
     /// Reports the Product's Price.
@@ -38,7 +38,7 @@ public class Product {
     /// Reports the Product's Quantity.
     /// </summary>
     [Required]
-    public int Quantity { get; set;}
+    public int Quantity { get; set; }
 
     /// <summary>
     /// Reports the Product's Image.
@@ -62,4 +62,23 @@ public class Product {
     /// Navigation property for the related Category entity.
     /// </summary>
     public virtual Category? Category { get; set; }
+
+    /// <summary>
+    /// Navigation property for the related List of Cart Items entity.
+    /// </summary>
+    public virtual List<CartItem> CartItems { get; set; }
+
+    /// <summary>
+    /// Navigation property for the related List of Order Item entity.
+    /// </summary>
+    public virtual List<OrderItem> OrderItems { get; set; }
+
+    /// <summary>
+    /// Constructor initialize the collections.
+    /// </summary>
+    public Product()
+    {
+        CartItems = [];
+        OrderItems = [];
+    }
 }

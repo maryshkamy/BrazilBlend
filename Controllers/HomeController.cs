@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BrazilBlend.Data;
-using BrazilBlend.Models;
+using BrazilBlend.ViewModels;
 
 namespace BrazilBlend.Controllers;
 
@@ -29,7 +29,7 @@ public class HomeController : Controller
         return View(categories);
     }
 
-    // GET: Products/Images
+    // GET: Images
     [HttpGet]
     public async Task<IActionResult> GetImage(int id)
     {

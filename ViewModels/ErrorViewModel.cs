@@ -1,4 +1,4 @@
-namespace BrazilBlend.Models;
+namespace BrazilBlend.ViewModels;
 
 public class ErrorViewModel
 {

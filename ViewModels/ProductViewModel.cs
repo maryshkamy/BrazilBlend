@@ -1,8 +1,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BrazilBlend.Models;
 
-namespace BrazilBlend.Models;
+namespace BrazilBlend.ViewModels;
 
 /// <summary>
 /// Class <c>Product View Model</c> models the product information.
@@ -26,7 +27,7 @@ public class ProductViewModel {
     [Required]
     [ForeignKey("Brand")]
     [DisplayName("Brand")]
-    public int BrandId { get; set;}
+    public int BrandId { get; set; }
 
     /// <summary>
     /// Reports the Product's Price.
@@ -38,7 +39,7 @@ public class ProductViewModel {
     /// Reports the Product's Quantity.
     /// </summary>
     [Required]
-    public int Quantity { get; set;}
+    public int Quantity { get; set; }
 
     /// <summary>
     /// Reports the Product's Image.

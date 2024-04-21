@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using BrazilBlend.Data;
 using BrazilBlend.Models;
 
 namespace BrazilBlend.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class BrandsController : Controller
 {
     private readonly ApplicationDbContext _context;

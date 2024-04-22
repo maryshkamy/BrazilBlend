@@ -112,7 +112,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
                 throw new Exception("Shopping Cart is empty.");
             }
 
-            var cartItem = _context.CartItem.FirstOrDefault(x => x.Id == shoppingCart.Id && x.ProductId == productId);
+            var cartItem = _context.CartItem.FirstOrDefault(x => x.ShoppingCartId == shoppingCart.Id && x.ProductId == productId);
             if (cartItem is null)
             {
                 throw new Exception("Cart Item is empty.");
@@ -126,7 +126,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
                 cartItem.Quantity--;
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
         catch (Exception ex)
         {

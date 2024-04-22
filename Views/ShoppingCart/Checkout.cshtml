@@ -1,0 +1,98 @@
+@model BrazilBlend.ViewModels.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+<form asp-action="Order" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <h4 class="mb-3">Billing address</h4>
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Province" class="control-label"></label>
+                <input asp-for="Province" class="form-control" />
+                <span asp-validation-for="Province" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <h4 class="mb-3">Payment</h4>
+    <div class="row gy-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="CreditCardName" class="control-label"></label>
+                <input asp-for="CreditCardName" class="form-control" />
+                <span asp-validation-for="CreditCardName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="CreditCardNumber" class="control-label"></label>
+                <input asp-for="CreditCardNumber" class="form-control" />
+                <span asp-validation-for="CreditCardNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="CreditCardExpiration" class="control-label"></label>
+                <input asp-for="CreditCardExpiration" class="form-control" />
+                <span asp-validation-for="CreditCardExpiration" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="CreditCardCVV" class="control-label"></label>
+                <input asp-for="CreditCardCVV" class="form-control" />
+                <span asp-validation-for="CreditCardCVV" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+        
+    <hr class="my-4">
+    <div class="form-group">
+        <input type="submit" value="Order" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

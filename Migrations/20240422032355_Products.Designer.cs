@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrazilBlend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240421225917_Order")]
-    partial class Order
+    [Migration("20240422032355_Products")]
+    partial class Products
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,73 +72,6 @@ namespace BrazilBlend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("BrazilBlend.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OrderStatusId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderStatusId");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("BrazilBlend.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItem");
-                });
-
-            modelBuilder.Entity("BrazilBlend.Models.OrderStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrderStatus");
                 });
 
             modelBuilder.Entity("BrazilBlend.Models.Product", b =>
@@ -408,36 +341,6 @@ namespace BrazilBlend.Migrations
                     b.Navigation("ShoppingCart");
                 });
 
-            modelBuilder.Entity("BrazilBlend.Models.Order", b =>
-                {
-                    b.HasOne("BrazilBlend.Models.OrderStatus", "OrderStatus")
-                        .WithMany()
-                        .HasForeignKey("OrderStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrderStatus");
-                });
-
-            modelBuilder.Entity("BrazilBlend.Models.OrderItem", b =>
-                {
-                    b.HasOne("BrazilBlend.Models.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BrazilBlend.Models.Product", "Product")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("BrazilBlend.Models.Product", b =>
                 {
                     b.HasOne("BrazilBlend.Models.Brand", "Brand")
@@ -518,16 +421,9 @@ namespace BrazilBlend.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("BrazilBlend.Models.Order", b =>
-                {
-                    b.Navigation("Items");
-                });
-
             modelBuilder.Entity("BrazilBlend.Models.Product", b =>
                 {
                     b.Navigation("CartItems");
-
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("BrazilBlend.Models.ShoppingCart", b =>

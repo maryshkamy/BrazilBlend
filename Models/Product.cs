@@ -69,16 +69,10 @@ public class Product {
     public virtual List<CartItem> CartItems { get; set; }
 
     /// <summary>
-    /// Navigation property for the related List of Order Item entity.
-    /// </summary>
-    public virtual List<OrderItem> OrderItems { get; set; }
-
-    /// <summary>
     /// Constructor initialize the collections.
     /// </summary>
     public Product()
     {
         CartItems = [];
-        OrderItems = [];
     }
 }

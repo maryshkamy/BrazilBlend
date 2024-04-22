@@ -1,0 +1,33 @@
+@model BrazilBlend.Models.ShoppingCart
+
+@{
+    double shoppingCartTotal = 0.0;
+}
+
+@if (Model.CartItems.Any())
+{
+    <ul class="list-group mb-3">
+        @foreach (var cartItem in Model.CartItems)
+        {
+            double cartItemTotal = cartItem.Product.Price * cartItem.Quantity;
+            shoppingCartTotal += cartItemTotal;
+
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div class="d-flex align-items-center">
+                    <img src="@Url.Action("GetImage", new { id = cartItem.Product.Id })" alt="Product Image" class="img-fluid mb-3" style="max-height: 150px;"/>
+
+                    <div class="ms-3">
+                        <h6 class="my-0 me-3">@Html.DisplayFor(modelItem => cartItem.Product.Name)</h6>
+                    </div>
+                </div>    
+
+                <span class="text-body-secondary">$@cartItemTotal</span>            
+            </li>
+        }
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Total</span>
+            <strong>$@shoppingCartTotal</strong>
+        </li>
+    </ul>
+}

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BrazilBlend.Data;
 using Microsoft.AspNetCore.Authorization;
 using BrazilBlend.Repositoris;
+using BrazilBlend.ViewModels;
 
 namespace BrazilBlend.Controllers;
 
@@ -32,7 +33,7 @@ public class ShoppingCartController : Controller
         var shoppingCart = await _shoppingCartRepository.GetShoppingCart();
 
         if (shoppingCart is null) {
-            
+
             return View();
         }
 
@@ -80,6 +81,19 @@ public class ShoppingCartController : Controller
 
             return File(defaultImageBytes, "image/jpeg");
         }
+    }
+
+    // GET: Checkout
+    public IActionResult Checkout()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Order(CheckoutViewModel checkoutViewModel)
+    {
+        return View(checkoutViewModel);
     }
 
     private bool ShoppingCartExists(int id)

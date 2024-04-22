@@ -11,9 +11,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Brand> Brand { get; set; } = default!;
     public DbSet<CartItem> CartItem { get; set; } = default!;
     public DbSet<Category> Category { get; set; } = default!;
-    public DbSet<Order> Order { get; set; } = default!;
-    public DbSet<OrderItem> OrderItem { get; set; } = default!;
-    public DbSet<OrderStatus> OrderStatus { get; set; } = default!;
     public DbSet<Product> Product { get; set; } = default!;
     public DbSet<ShoppingCart> ShoppingCart { get; set; } = default!;
 }

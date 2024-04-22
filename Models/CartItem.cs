@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BrazilBlend.Models;
 
@@ -17,6 +19,8 @@ public class CartItem
     /// Reports the Cart Item's Product ID.
     /// </summary>
     [Required]
+    [ForeignKey("Product")]
+    [DisplayName("Product")]
     public int ProductId { get; set; }
 
     /// <summary>
@@ -29,6 +33,8 @@ public class CartItem
     /// Reports the Cart Item's Shopping Cart ID.
     /// </summary>
     [Required]
+    [ForeignKey("ShoppingCart")]
+    [DisplayName("ShoppingCart")]
     public int ShoppingCartId { get; set; }
 
     /// <summary>

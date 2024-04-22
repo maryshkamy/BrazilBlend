@@ -4,10 +4,7 @@
 
 <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-            <span class="badge text-bg-primary">(0)</span>
-            Cart
-        </a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">Cart</a>
     </li>
 @if (SignInManager.IsSignedIn(User))
 {

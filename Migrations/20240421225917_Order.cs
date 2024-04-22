@@ -5,7 +5,7 @@
 namespace BrazilBlend.Migrations
 {
     /// <inheritdoc />
-    public partial class Orders : Migration
+    public partial class Order : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

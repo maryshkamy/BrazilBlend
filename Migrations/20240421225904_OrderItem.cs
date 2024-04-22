@@ -5,7 +5,7 @@
 namespace BrazilBlend.Migrations
 {
     /// <inheritdoc />
-    public partial class ShoppingCarts : Migration
+    public partial class OrderItem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

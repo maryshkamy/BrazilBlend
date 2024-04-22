@@ -1,0 +1,79 @@
+@model BrazilBlend.Models.ShoppingCart
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h1>Shopping Cart</h1>
+
+@if (Model.CartItems.Any())
+{
+    <ul class="list-group mb-3">
+        @foreach (var cartItem in Model.CartItems)
+        {
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div class="d-flex align-items-center">
+                    <img src="@Url.Action("GetImage", new { id = cartItem.Product.Id })" alt="Product Image" class="img-fluid mb-3" style="max-height: 150px;"/>
+
+                    <div class="ms-3">
+                        <h6 class="my-0 me-3">@Html.DisplayFor(modelItem => cartItem.Product.Name)</h6>
+                        
+                        <br>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <button type="button" onclick="Remove(@cartItem.Product.Id)" class="btn btn-primary btn-block">-</button>
+                            </div>
+
+                            <div class="col-auto">
+                                <small>@Html.DisplayFor(modelItem => cartItem.Quantity)</small>
+                            </div>
+
+                            <div class="col-auto">
+                                <button type="button" onclick="Add(@cartItem.Product.Id)" class="btn btn-primary btn-block">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+
+                <span class="text-body-secondary">$@Html.DisplayFor(modelItem => cartItem.Product.Price)</span>            
+            </li>
+        }
+          
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Total</span>
+            <strong>$20</strong>
+        </li>
+    </ul>
+}
+else
+{
+    <p>Your shopping cart is empty.</p>
+}
+
+@section Scripts {
+    <script>
+        async function Add(productId) {
+            try {
+                var response = await fetch(`/ShoppingCart/AddItem?productId=${productId}`);
+
+                if (response.status == 200) {
+                    location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        @* async function Remove(productId) {
+            try {
+                var response = await fetch(`/ShoppingCart/RemoveItem?productId=${productId}`);
+
+                if (response.status == 200) {
+                    location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        } *@
+    </script>
+}

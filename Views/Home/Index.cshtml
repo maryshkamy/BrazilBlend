@@ -25,7 +25,7 @@
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <a href="@Url.Action("AddToCart", "Product", new { id = product.Id })" class="btn btn-primary btn-block">Add to Cart</a>
+                                    <button type="button" onclick="Add(@product.Id)" class="btn btn-primary btn-block">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -34,4 +34,20 @@
             }
         </div>
     }
+}
+
+@section Scripts {
+    <script>
+        async function Add(productId) {
+            try {
+                var response = await fetch(`/ShoppingCart/AddItem?productId=${productId}`);
+
+                if (response.status == 200) {
+                    alert("Product has been added to cart.")
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
 }

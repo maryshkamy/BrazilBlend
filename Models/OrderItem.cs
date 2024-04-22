@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BrazilBlend.Models;
 
@@ -17,12 +19,16 @@ public class OrderItem
     /// Reports the Order Item's Order ID.
     /// </summary>
     [Required]
+    [ForeignKey("Order")]
+    [DisplayName("Order")]
     public int OrderId { get; set; }
 
     /// <summary>
     /// Reports the Order Item's Product ID.
     /// </summary>
     [Required]
+    [ForeignKey("Product")]
+    [DisplayName("Product")]
     public int ProductId { get; set; }
 
     /// <summary>

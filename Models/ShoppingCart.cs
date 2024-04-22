@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BrazilBlend.Models;
 
@@ -17,6 +19,8 @@ public class ShoppingCart
     /// Reports the Shopping Cart's User ID owner.
     /// </summary>
     [Required]
+    [ForeignKey("User")]
+    [DisplayName("User")]
     public string? UserId { get; set; }
 
     /// <summary>

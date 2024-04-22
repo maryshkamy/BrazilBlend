@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrazilBlend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240421024427_OrderStatus")]
+    [Migration("20240421225855_OrderStatus")]
     partial class OrderStatus
     {
         /// <inheritdoc />
@@ -184,8 +184,9 @@ namespace BrazilBlend.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -397,7 +398,7 @@ namespace BrazilBlend.Migrations
                         .IsRequired();
 
                     b.HasOne("BrazilBlend.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -527,6 +528,11 @@ namespace BrazilBlend.Migrations
                     b.Navigation("CartItems");
 
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("BrazilBlend.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

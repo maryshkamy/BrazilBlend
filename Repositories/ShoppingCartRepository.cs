@@ -11,7 +11,7 @@ public interface IShoppingCartRepository
 {
     Task<int> AddItem(int productId, int quantity);
     Task<int> RemoveItem(int productId);
-    Task<IEnumerable<ShoppingCart>> GetShoppingCart();
+    Task<ShoppingCart> GetShoppingCart();
 }
 
 public class ShoppingCartRepository : IShoppingCartRepository
@@ -58,9 +58,9 @@ public class ShoppingCartRepository : IShoppingCartRepository
                 _context.ShoppingCart.Add(shoppingCart);
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
-            var cartItem = _context.CartItem.FirstOrDefault(x => x.Id == shoppingCart.Id && x.ProductId == productId);
+            var cartItem = _context.CartItem.FirstOrDefault(x => x.ShoppingCartId == shoppingCart.Id && x.ProductId == productId);
 
             if (cartItem is not null)
             {
@@ -78,7 +78,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
                 _context.CartItem.Add(cartItem);
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             transaction.Commit();
         }
         catch (Exception ex)
@@ -141,7 +141,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
     /// </summary>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public async Task<IEnumerable<ShoppingCart>> GetShoppingCart()
+    public async Task<ShoppingCart> GetShoppingCart()
     {
         string userId = GetUserId();
 
@@ -150,16 +150,29 @@ public class ShoppingCartRepository : IShoppingCartRepository
             throw new Exception("Invalid User ID.");
         }
 
-        var shoppingCart = await _context.ShoppingCart
+        var shoppingCart = await GetUserActiveShoppingCart(userId);
+
+        if (shoppingCart is null)
+        {
+            shoppingCart = new ShoppingCart
+            {
+                UserId = userId,
+                IsActive = true
+            };
+
+            _context.ShoppingCart.Add(shoppingCart);
+        }
+
+        _context.SaveChanges();
+
+        return await _context.ShoppingCart
                                     .Include(x => x.CartItems)
                                         .ThenInclude(x => x.Product)
                                             .ThenInclude(x => x.Category)
                                     .Include(x => x.CartItems)
                                         .ThenInclude(x => x.Product)
                                             .ThenInclude(x => x.Brand)
-                                    .Where(x => x.UserId == userId).ToListAsync();
-        
-        return shoppingCart;
+                                    .Where(x => x.UserId == userId).FirstOrDefaultAsync();
     }
 
     /// <summary>

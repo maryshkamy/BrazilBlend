@@ -181,8 +181,9 @@ namespace BrazilBlend.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -394,7 +395,7 @@ namespace BrazilBlend.Migrations
                         .IsRequired();
 
                     b.HasOne("BrazilBlend.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -524,6 +525,11 @@ namespace BrazilBlend.Migrations
                     b.Navigation("CartItems");
 
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("BrazilBlend.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

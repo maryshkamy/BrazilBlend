@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using BrazilBlend.Data;
 using BrazilBlend.ViewModels;
 
@@ -8,14 +9,11 @@ namespace BrazilBlend.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
     private readonly ApplicationDbContext _context;
     private readonly IWebHostEnvironment _environment;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IWebHostEnvironment environment)
+    public HomeController(ApplicationDbContext context, IWebHostEnvironment environment)
     {
-        _logger = logger;
         _context = context;
         _environment = environment;
     }
@@ -29,7 +27,7 @@ public class HomeController : Controller
         return View(categories);
     }
 
-    // GET: Images
+    // GET: Products/Image
     [HttpGet]
     public async Task<IActionResult> GetImage(int id)
     {

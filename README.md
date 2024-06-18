@@ -10,7 +10,7 @@
 ---
 ### ⚙️ How to run?
 
-#### ● macOS Guide:
+#### • macOS Guide:
 On your macOS, open this project in [Visual Studio Code](https://code.visualstudio.com). Then open a new `Terminal` window.
 Type the above command and press enter to run the project.
 
@@ -37,7 +37,7 @@ info: Microsoft.Hosting.Lifetime[0]
 
 Follow the local host link to open the project in your preferred browser.
 
-#### ● Windows Guide:
+#### • Windows Guide:
 
 Work in progress...
 
